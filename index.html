@@ -1,843 +1,376 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leonardo Pol | Software Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Portfolio of Leonardo Pol, Software Engineer specializing in Cloud Architecture, Microservices, and IoT.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* CSS Custom Properties - Cyberpunk Theme */
         :root {
-            /* Cyberpunk Color Palette */
-            --neon-blue: #00f3ff;
-            --neon-pink: #ff00ff;
-            --neon-purple: #9d00ff;
-            --neon-green: #00ff9d;
-            --neon-yellow: #ffeb00;
-            
-            /* Dark Theme Base */
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-tertiary: #1a1a25;
-            --bg-glass: rgba(26, 26, 37, 0.8);
-            --bg-glass-border: rgba(0, 243, 255, 0.2);
-            
-            /* Text Colors */
-            --text-primary: #ffffff;
-            --text-secondary: #b8b8cc;
-            --text-muted: #8a8aa0;
-            
-            /* Typography Scale */
-            --text-xs: 0.75rem;
-            --text-sm: 0.875rem;
-            --text-base: 1rem;
-            --text-lg: 1.125rem;
-            --text-xl: 1.25rem;
-            --text-2xl: 1.5rem;
-            --text-3xl: 1.875rem;
-            --text-4xl: 2.25rem;
-            
-            /* Spacing Scale */
-            --space-xs: 0.5rem;
-            --space-sm: 0.75rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
-            
-            /* Effects */
-            --glow-blue: 0 0 10px rgba(0, 243, 255, 0.5);
-            --glow-pink: 0 0 10px rgba(255, 0, 255, 0.5);
-            --glow-purple: 0 0 10px rgba(157, 0, 255, 0.5);
-            --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 20px rgba(0, 243, 255, 0.3);
-        }
-
-        /* CSS Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #171717;
+            --text-primary: #ededed;
+            --text-secondary: #a3a3a3;
+            --border-color: #262626;
+            --accent-gray: #404040;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-primary);
             color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
             background: var(--bg-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gray);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #525252;
         }
 
-        /* Cyberpunk Typography */
-        h1, h2, h3, h4, h5 {
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: 0.05em;
+        /* Utility classes for animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
         }
 
-        h1 { 
-            font-size: var(--text-4xl);
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: var(--glow-blue);
-        }
-
-        h2 { 
-            font-size: var(--text-3xl);
-            color: var(--neon-blue);
-            text-shadow: var(--glow-blue);
-        }
-
-        h3 { 
-            font-size: var(--text-2xl);
-            color: var(--neon-pink);
-            text-shadow: var(--glow-pink);
-        }
-
-        h4 { 
-            font-size: var(--text-xl);
-            color: var(--neon-green);
-        }
-
-        p, li {
-            font-size: var(--text-base);
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        .text-lead {
-            font-size: var(--text-lg);
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .text-muted {
-            font-size: var(--text-sm);
-            color: var(--text-muted);
-        }
-
-        /* Layout */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        .grid {
-            display: grid;
-            gap: var(--space-lg);
-        }
-
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-
-        /* Cyberpunk Cards */
-        .card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            border: 1px solid var(--bg-glass-border);
-            padding: var(--space-xl);
-            box-shadow: var(--shadow-dark);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
+        .timeline-line::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-glow);
-            border-color: var(--neon-blue);
-        }
-
-        /* Cyberpunk Chips */
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-xs);
-            padding: var(--space-xs) var(--space-md);
-            border-radius: 20px;
-            font-size: var(--text-sm);
-            font-weight: 500;
-            margin-right: var(--space-sm);
-            margin-bottom: var(--space-sm);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .chip-blue {
-            background: rgba(0, 243, 255, 0.1);
-            color: var(--neon-blue);
-            border: 1px solid rgba(0, 243, 255, 0.3);
-        }
-
-        .chip-pink {
-            background: rgba(255, 0, 255, 0.1);
-            color: var(--neon-pink);
-            border: 1px solid rgba(255, 0, 255, 0.3);
-        }
-
-        .chip-purple {
-            background: rgba(157, 0, 255, 0.1);
-            color: var(--neon-purple);
-            border: 1px solid rgba(157, 0, 255, 0.3);
-        }
-
-        .chip-green {
-            background: rgba(0, 255, 157, 0.1);
-            color: var(--neon-green);
-            border: 1px solid rgba(0, 255, 157, 0.3);
-        }
-
-        .chip-yellow {
-            background: rgba(255, 235, 0, 0.1);
-            color: var(--neon-yellow);
-            border: 1px solid rgba(255, 235, 0, 0.3);
-        }
-
-        .chip:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px currentColor;
-        }
-
-        .chip-icon {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Animated Navigation Button */
-        .nav-button {
-            position: fixed;
-            bottom: var(--space-lg);
-            right: var(--space-lg);
-            width: 60px;
-            height: 60px;
-            background: rgba(26, 26, 37, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-dark), var(--glow-blue);
-        }
-
-        .nav-button:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-glow);
-            border-color: var(--neon-blue);
-            background: rgba(26, 26, 37, 0.9);
-        }
-
-        .nav-button.up .arrow {
-            transform: rotate(-180deg);
-        }
-
-        .arrow {
-            width: 24px;
-            height: 24px;
-            transition: all 0.3s ease;
-            animation: bounce 2s infinite;
-        }
-
-        .arrow path {
-            stroke: var(--neon-blue);
-            stroke-width: 2;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .nav-button:hover .arrow path {
-            stroke: var(--neon-pink);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: var(--space-3xl) 0 var(--space-2xl);
-            text-align: center;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
-            pointer-events: none;
+            left: 0; /* aligned with container left padding */
+            width: 1px;
+            background: var(--border-color);
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
+        /* Hover effects */
+        .card-hover {
+            transition: border-color 0.2s ease, background-color 0.2s ease;
         }
-
-        .hero .text-lead {
-            margin-bottom: var(--space-xl);
-        }
-
-        .contact-chips {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: var(--space-sm);
-            margin-top: var(--space-xl);
-            margin-bottom: var(--space-lg);
-        }
-
-        /* Experience Section */
-        section {
-            margin: var(--space-2xl) 0;
-            padding-bottom: var(--space-2xl);
-        }
-
-        section h2 {
-            text-align: center;
-            margin-bottom: var(--space-lg);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto var(--space-xl);
-            color: var(--text-secondary);
-        }
-
-        .experience-card {
-            margin-bottom: var(--space-xl);
-        }
-
-        .experience-card:last-child {
-            margin-bottom: 0;
-        }
-
-        .job-header {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
-            align-items: start;
-        }
-
-        .job-title {
-            color: var(--neon-pink);
-            margin-bottom: var(--space-xs);
-        }
-
-        .company {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .date {
-            color: var(--neon-green);
-            font-size: var(--text-sm);
-            background: rgba(0, 255, 157, 0.1);
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: 20px;
-            font-weight: 500;
-            text-align: center;
-            border: 1px solid rgba(0, 255, 157, 0.3);
-        }
-
-        .job-details ul {
-            list-style: none;
-        }
-
-        .job-details li {
-            margin-bottom: var(--space-sm);
-            padding-left: var(--space-md);
-            position: relative;
-        }
-
-        .job-details li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--neon-blue);
-        }
-
-        /* Skills Section */
-        .skill-category h4 {
-            color: var(--neon-purple);
-            margin-bottom: var(--space-md);
-        }
-
-        .skill-category ul {
-            list-style: none;
-        }
-
-        .skill-category li {
-            margin-bottom: var(--space-sm);
-            padding-left: var(--space-md);
-            position: relative;
-        }
-
-        .skill-category li::before {
-            content: "◆";
-            position: absolute;
-            left: 0;
-            color: var(--neon-green);
-            font-size: 0.8em;
-        }
-
-        /* Footer - Transparent */
-        footer {
-            background: transparent;
-            padding: var(--space-xl) 0;
-            margin-top: var(--space-3xl);
-            border-top: 1px solid var(--bg-glass-border);
-            text-align: center;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: var(--text-3xl);
-            }
-            
-            .contact-chips {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .job-header {
-                grid-template-columns: 1fr;
-            }
-            
-            .date {
-                justify-self: start;
-            }
-            
-            .nav-button {
-                bottom: var(--space-md);
-                right: var(--space-md);
-                width: 50px;
-                height: 50px;
-            }
-            
-            .arrow {
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            :root {
-                --text-base: 0.9rem;
-                --text-lg: 1rem;
-                --text-xl: 1.125rem;
-                --text-2xl: 1.25rem;
-                --text-3xl: 1.5rem;
-                --text-4xl: 1.75rem;
-            }
-            
-            .container {
-                padding: 0 var(--space-md);
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-5px);
-            }
-            60% {
-                transform: translateY(-3px);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .glow-pulse {
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        /* Content padding for bottom nav */
-        main {
-            padding-bottom: 100px;
+        .card-hover:hover {
+            border-color: #525252;
+            background-color: #1f1f1f;
         }
     </style>
 </head>
-<body>
-    <!-- Main Content -->
-    <main class="container">
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-sm font-bold tracking-tighter uppercase text-white hover:text-neutral-400 transition-colors">LP.DEV</a>
+            <div class="flex gap-6 text-sm font-medium text-neutral-400">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 pt-32 pb-20">
+        
         <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-content fade-in">
-                <h1>LEONARDO POL</h1>
-                <p class="text-lead">Software Engineer & Technical Architect</p>
-                <p>Building future-proof systems with cyberpunk precision and innovative solutions</p>
+        <section id="about" class="fade-in-section mb-24">
+            <div class="space-y-6">
+                <div class="inline-block px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-neutral-900 border border-neutral-800 text-neutral-400 rounded-full">
+                    Available for new opportunities
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-white">
+                    Leonardo Pol
+                </h1>
+                <h2 class="text-xl md:text-2xl text-neutral-400 font-medium">
+                    Software Engineer • Cloud Architecture • IoT
+                </h2>
+                <p class="max-w-2xl text-lg text-neutral-400 leading-relaxed">
+                    Over five years of high-leverage engineering experience. I specialize in optimizing resources, designing robust APIs, and building serverless architectures. From orchestrating Big Data pipelines to managing large-scale IoT infrastructures, I focus on reducing technical debt and operational costs while maximizing system performance.
+                </p>
                 
-                <!-- Contact & Social Chips -->
-                <div class="contact-chips">
-                    <a href="mailto:leonardo.pol@outlook.com" class="chip chip-blue">
-                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Email
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="mailto:leonardo.pol@outlook.com" class="inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded text-sm font-semibold hover:bg-neutral-200 transition-colors">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Contact Me
                     </a>
-                    <a href="tel:+393427802285" class="chip chip-pink">
-                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22 16.92V19.92C22 20.52 21.53 20.99 20.96 21.02C20.38 21.05 19.48 20.9 18.78 20.62C15.94 19.55 13.36 17.78 11.23 15.45C9.29 13.32 7.81 10.79 6.91 8.02C6.57 6.9 6.41 5.75 6.41 4.63C6.41 4.05 6.87 3.59 7.45 3.59H10.45C10.99 3.59 11.45 3.99 11.5 4.53C11.63 5.94 11.98 7.32 12.55 8.62C12.69 8.96 12.61 9.35 12.34 9.62L10.87 11.09C12.41 13.61 14.52 15.72 17.04 17.26L18.51 15.79C18.78 15.52 19.17 15.44 19.51 15.58C20.82 16.15 22.2 16.5 23.61 16.63C24.15 16.68 24.55 17.14 24.55 17.68L22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Phone
-                    </a>
-                    <a href="#" class="chip chip-purple">
-                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        LinkedIn
-                    </a>
-                    <a href="#" class="chip chip-green">
-                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.37C16 17.45 15.81 16.55 15.43 15.73C15.05 14.91 14.49 14.19 13.8 13.62C17.14 13.24 20.5 12 20.5 7.5C20.4996 6.34 20.06 5.23 19.27 4.38C19.67 3.36 19.67 2.24 19.27 1.22C19.27 1.22 18.25 0.92 16.18 2.5C14.45 2.04 12.63 2.04 10.9 2.5C8.83 0.92 7.81 1.22 7.81 1.22C7.41 2.24 7.41 3.36 7.81 4.38C7.02 5.23 6.58 6.34 6.58 7.5C6.58 12 9.94 13.24 13.28 13.62C12.59 14.19 12.03 14.91 11.65 15.73C11.27 16.55 11.08 17.45 11.08 18.37V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <a href="https://github.com/leopoldev404" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-neutral-900 border border-neutral-800 text-neutral-300 px-5 py-2.5 rounded text-sm font-medium hover:bg-neutral-800 hover:text-white transition-colors">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0 3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         GitHub
                     </a>
-                </div>
-
-                <!-- Skill Chips -->
-                <div>
-                    <span class="chip chip-blue glow-pulse">Cloud Architecture</span>
-                    <span class="chip chip-pink">Microservices</span>
-                    <span class="chip chip-purple">DevOps</span>
-                    <span class="chip chip-green">System Design</span>
-                    <span class="chip chip-yellow">Python</span>
+                    <a href="https://linkedin.com/in/leonardo-pol-3773aa207" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-neutral-900 border border-neutral-800 text-neutral-300 px-5 py-2.5 rounded text-sm font-medium hover:bg-neutral-800 hover:text-white transition-colors">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        LinkedIn
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about">
-            <h2>SYSTEM ARCHITECT</h2>
-            <p class="section-subtitle">Engineering resilient systems for the digital frontier</p>
-            <div class="card fade-in">
-                <p>I specialize in architecting cyber-resilient systems that thrive in complex environments. My approach combines cutting-edge technology with battle-tested methodologies to deliver solutions that not only meet today's demands but anticipate tomorrow's challenges.</p>
-                <p>With a focus on cloud-native architectures and distributed systems, I build platforms that scale exponentially while maintaining operational excellence. My work spans from mission-critical public safety systems to high-throughput data processing pipelines.</p>
-                <div style="margin-top: var(--space-lg);">
-                    <span class="chip chip-blue">Azure Cloud</span>
-                    <span class="chip chip-pink">Kubernetes</span>
-                    <span class="chip chip-purple">Python</span>
-                    <span class="chip chip-green">IoT Systems</span>
-                    <span class="chip chip-blue">Data Pipelines</span>
-                </div>
+        <!-- Tech Stack Scroller (Visual break) -->
+        <section class="fade-in-section mb-24 border-y border-neutral-800 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="text-neutral-500 font-mono text-xs uppercase tracking-widest">Docker & K8s</div>
+                <div class="text-neutral-500 font-mono text-xs uppercase tracking-widest">Azure & AWS</div>
+                <div class="text-neutral-500 font-mono text-xs uppercase tracking-widest">Python & Microservices</div>
+                <div class="text-neutral-500 font-mono text-xs uppercase tracking-widest">CI/CD Optimization</div>
             </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience">
-            <h2>MISSION LOG</h2>
-            <p class="section-subtitle">Strategic deployments across the tech landscape</p>
-            
-            <div class="grid">
-                <!-- Safety21 -->
-                <div class="card experience-card fade-in">
-                    <div class="job-header">
-                        <div>
-                            <h3 class="job-title">SOFTWARE ENGINEER</h3>
-                            <p class="company">Safety21 | Padua, Italy</p>
-                        </div>
-                        <span class="date">2024 - PRESENT</span>
-                    </div>
-                    <div class="job-details">
-                        <ul>
-                            <li>Architected mission-critical public safety systems with 99.99% uptime</li>
-                            <li>Orchestrated cloud migration reducing infrastructure costs by 45%</li>
-                            <li>Implemented zero-trust security protocols for government systems</li>
-                            <li>Led development of real-time data processing for emergency services</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top: var(--space-md);">
-                        <span class="chip chip-blue">Azure</span>
-                        <span class="chip chip-pink">K8s</span>
-                        <span class="chip chip-purple">.NET</span>
-                        <span class="chip chip-green">DevOps</span>
-                    </div>
-                </div>
+        <section id="experience" class="fade-in-section mb-24 relative pl-8 border-l border-neutral-800">
+            <h3 class="text-2xl font-bold text-white mb-10 -ml-8 flex items-center gap-4">
+                <span class="w-8 h-[1px] bg-neutral-600 inline-block"></span>
+                Professional Experience
+            </h3>
 
-                <!-- Capgemini -->
-                <div class="card experience-card fade-in">
-                    <div class="job-header">
-                        <div>
-                            <h3 class="job-title">SENIOR CONSULTANT</h3>
-                            <p class="company">Capgemini | Venice, Italy</p>
-                        </div>
-                        <span class="date">2022 - 2024</span>
-                    </div>
-                    <div class="job-details">
-                        <ul>
-                            <li>Commanded 22-developer squad delivering telecom infrastructure</li>
-                            <li>Engineered CI/CD systems reducing deployment cycles by 85%</li>
-                            <li>Architected microservices handling 50M+ daily transactions</li>
-                            <li>Implemented AI-driven monitoring reducing incident response time</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top: var(--space-md);">
-                        <span class="chip chip-blue">Python</span>
-                        <span class="chip chip-pink">Docker</span>
-                        <span class="chip chip-purple">AWS</span>
-                        <span class="chip chip-green">CI/CD</span>
-                    </div>
+            <!-- Job 1 -->
+            <div class="mb-12 relative">
+                <div class="absolute -left-[41px] top-1.5 w-5 h-5 bg-neutral-900 border border-neutral-700 rounded-full flex items-center justify-center">
+                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
                 </div>
-
-                <!-- Avanade -->
-                <div class="card experience-card fade-in">
-                    <div class="job-header">
-                        <div>
-                            <h3 class="job-title">BACKEND DEVELOPER</h3>
-                            <p class="company">Avanade | Padua, Italy</p>
-                        </div>
-                        <span class="date">2021 - 2022</span>
-                    </div>
-                    <div class="job-details">
-                        <ul>
-                            <li>Built satellite data processing systems handling 15TB+ daily</li>
-                            <li>Designed IoT networks for environmental monitoring</li>
-                            <li>Implemented real-time analytics for space data streams</li>
-                            <li>Created data validation systems with 99.9% accuracy</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top: var(--space-md);">
-                        <span class="chip chip-blue">Azure IoT</span>
-                        <span class="chip chip-pink">Python</span>
-                        <span class="chip chip-purple">ETL</span>
-                        <span class="chip chip-green">Data Science</span>
-                    </div>
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                    <h4 class="text-xl font-bold text-white">Safety21</h4>
+                    <span class="font-mono text-xs text-neutral-500 uppercase tracking-wide">Jun 2024 — Present</span>
                 </div>
+                <p class="text-sm font-medium text-neutral-400 mb-4">Padova, Italy</p>
+                <div class="bg-neutral-900/50 border border-neutral-800 p-6 rounded-lg card-hover">
+                    <ul class="space-y-3 text-neutral-400 text-sm leading-relaxed list-disc list-inside marker:text-neutral-600">
+                        <li>Maintain and enhance mission-critical applications supporting public safety operations for police headquarters and government agencies, ensuring high availability (HA).</li>
+                        <li>Driving infrastructure modernization via a cloud-first approach, leveraging containerization, microservices, and Infrastructure-as-Code (IaC).</li>
+                        <li>Leading the migration of on-premise applications to the cloud, prioritizing scalability, security, and cost-efficiency.</li>
+                        <li>Refactoring legacy applications for cloud deployment, integrating architecture best practices and DevOps methodologies.</li>
+                    </ul>
+                </div>
+            </div>
 
-                <!-- Texa -->
-                <div class="card experience-card fade-in">
-                    <div class="job-header">
-                        <div>
-                            <h3 class="job-title">CLOUD & SOFTWARE DEVELOPER</h3>
-                            <p class="company">Texa | Monastier, Italy</p>
-                        </div>
-                        <span class="date">2020 - 2021</span>
-                    </div>
-                    <div class="job-details">
-                        <ul>
-                            <li>Developed full-stack web extensions for Azure resource management</li>
-                            <li>Optimized cloud infrastructure achieving 35% cost reduction</li>
-                            <li>Built monitoring solutions identifying significant savings opportunities</li>
-                            <li>Created internal tools improving team productivity by 40%</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top: var(--space-md);">
-                        <span class="chip chip-blue">Azure</span>
-                        <span class="chip chip-pink">Full-Stack</span>
-                        <span class="chip chip-purple">SQL</span>
-                        <span class="chip chip-green">Graph DB</span>
-                    </div>
+            <!-- Job 2 -->
+            <div class="mb-12 relative">
+                <div class="absolute -left-[41px] top-1.5 w-5 h-5 bg-neutral-900 border border-neutral-700 rounded-full"></div>
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                    <h4 class="text-xl font-bold text-white">Capgemini</h4>
+                    <span class="font-mono text-xs text-neutral-500 uppercase tracking-wide">Jun 2022 — Jun 2024</span>
+                </div>
+                <p class="text-sm font-medium text-neutral-400 mb-1">Senior Consultant</p>
+                <p class="text-xs text-neutral-500 mb-4">Venice, Italy</p>
+                <div class="bg-neutral-900/50 border border-neutral-800 p-6 rounded-lg card-hover">
+                    <ul class="space-y-3 text-neutral-400 text-sm leading-relaxed list-disc list-inside marker:text-neutral-600">
+                        <li>Optimized CI/CD pipelines for containerized applications using Docker, EKS, SonarQube, and GitLab, significantly reducing deployment times.</li>
+                        <li>Led a development team of 22 developers building Python-based microservices in the telecommunications sector.</li>
+                        <li>Drove innovation and scalability in complex systems, ensuring delivery efficiency.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="mb-12 relative">
+                <div class="absolute -left-[41px] top-1.5 w-5 h-5 bg-neutral-900 border border-neutral-700 rounded-full"></div>
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                    <h4 class="text-xl font-bold text-white">Avanade</h4>
+                    <span class="font-mono text-xs text-neutral-500 uppercase tracking-wide">Apr 2021 — Jun 2022</span>
+                </div>
+                <p class="text-sm font-medium text-neutral-400 mb-1">Analyst Backend Developer</p>
+                <p class="text-xs text-neutral-500 mb-4">Padova, Italy</p>
+                <div class="bg-neutral-900/50 border border-neutral-800 p-6 rounded-lg card-hover">
+                    <ul class="space-y-3 text-neutral-400 text-sm leading-relaxed list-disc list-inside marker:text-neutral-600">
+                        <li>Spearheaded development of containerized backend applications to collect and process satellite data from external providers.</li>
+                        <li>Designed and implemented an ETL pipeline for efficient satellite data processing.</li>
+                        <li>Built and managed IoT infrastructure using Azure IoT Hub, enabling seamless data collection from hundreds of IoT devices.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Job 4 -->
+            <div class="relative">
+                <div class="absolute -left-[41px] top-1.5 w-5 h-5 bg-neutral-900 border border-neutral-700 rounded-full"></div>
+                <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                    <h4 class="text-xl font-bold text-white">Texa</h4>
+                    <span class="font-mono text-xs text-neutral-500 uppercase tracking-wide">Jan 2020 — Apr 2021</span>
+                </div>
+                <p class="text-sm font-medium text-neutral-400 mb-1">Cloud & Software Developer</p>
+                <p class="text-xs text-neutral-500 mb-4">Monastier, Treviso</p>
+                <div class="bg-neutral-900/50 border border-neutral-800 p-6 rounded-lg card-hover">
+                    <ul class="space-y-3 text-neutral-400 text-sm leading-relaxed list-disc list-inside marker:text-neutral-600">
+                        <li>Developed a Full-Stack Web Extension to streamline Azure resource management, enabling cost tracking and project-specific utilization (SQL & Graph DB).</li>
+                        <li>Optimized existing cloud infrastructure via efficient storage options, log management, and VM resizing, resulting in reduced operational costs.</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills">
-            <h2>CORE SYSTEMS</h2>
-            <p class="section-subtitle">Technical arsenal for digital transformation</p>
-            <div class="grid grid-2">
-                <div class="card skill-category fade-in">
-                    <h4>CLOUD INFRASTRUCTURE</h4>
-                    <ul>
-                        <li>Azure Cloud Architecture</li>
-                        <li>Kubernetes Orchestration</li>
-                        <li>Serverless Computing</li>
-                        <li>Infrastructure as Code</li>
-                        <li>Multi-cloud Deployment</li>
-                    </ul>
+        <!-- Technical Expertise (Grid) -->
+        <section class="fade-in-section mb-24">
+             <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-4">
+                <span class="w-8 h-[1px] bg-neutral-600 inline-block"></span>
+                Core Competencies
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-8">
+                
+                <!-- Category 1: Cloud & DevOps -->
+                <div class="space-y-4">
+                    <h5 class="text-sm font-bold text-neutral-500 uppercase tracking-widest">Cloud & DevOps</h5>
+                    <div class="flex flex-wrap gap-3">
+                        <!-- Azure -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L15 22L11 13L2 13L22 2Z"/></svg>
+                            <span>Azure</span>
+                        </div>
+                         <!-- AWS -->
+                         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.61 16.52a9 9 0 0 0-7.46-9.77c.32.84.23 1.81.25 2.76.01.69-.12 1.4-.41 2.04-.49 1.12-1.63 1.93-2.82 2.08-1.4.18-2.85-.38-3.66-1.55-.78-1.12-.8-2.65-.12-3.83.69-1.2 2.08-1.92 3.47-1.84 1.39.08 2.65.99 3.12 2.31a5.04 5.04 0 0 1 .18 1.62c0 1.25-.01 2.5 0 3.75a.73.73 0 0 0 .61.76c.49.07 1-.16 1.15-.63.26-.82-.04-1.74-.66-2.33-.62-.59-1.54-.74-2.36-.45a3.67 3.67 0 0 0-2.38 2.6c-.36 1.4.32 2.92 1.63 3.51 1.25.56 2.78.14 3.54-1.02.26-.4.43-.85.54-1.32"/></svg>
+                            <span>AWS</span>
+                        </div>
+                        <!-- Docker -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M5 12V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"/><path d="M4 17h16"/><path d="M7 17v3"/><path d="M17 17v3"/></svg>
+                            <span>Docker</span>
+                        </div>
+                        <!-- Kubernetes -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+                            <span>Kubernetes (EKS)</span>
+                        </div>
+                        <!-- IaC -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            <span>Infrastructure as Code</span>
+                        </div>
+                        <!-- CI/CD -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>CI/CD (GitLab)</span>
+                        </div>
+                        <!-- Serverless -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            <span>Serverless</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="card skill-category fade-in">
-                    <h4>SYSTEM DESIGN</h4>
-                    <ul>
-                        <li>Microservices Architecture</li>
-                        <li>Event-Driven Systems</li>
-                        <li>API Design & Development</li>
-                        <li>Database Optimization</li>
-                        <li>System Monitoring</li>
-                    </ul>
+
+                <!-- Category 2: Backend Engineering -->
+                <div class="space-y-4">
+                    <h5 class="text-sm font-bold text-neutral-500 uppercase tracking-widest">Backend Engineering</h5>
+                    <div class="flex flex-wrap gap-3">
+                         <!-- Python -->
+                         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M10 8h4"/><path d="M10 16h4"/><path d="M8 12h8"/></svg>
+                            <span>Python</span>
+                        </div>
+                        <!-- Microservices -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="9" rx="2"/><rect x="13" y="2" width="9" height="9" rx="2"/><rect x="13" y="13" width="9" height="9" rx="2"/><rect x="2" y="13" width="9" height="9" rx="2"/></svg>
+                            <span>Microservices</span>
+                        </div>
+                         <!-- SQL -->
+                         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                            <span>SQL & Graph DB</span>
+                        </div>
+                        <!-- ETL -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6v6h-6z"/><path d="M14 4h6v6h-6z"/><path d="M4 14h6v6h-6z"/><path d="M14 14h6v6h-6z"/><path d="M10 7h4"/><path d="M7 10v4"/></svg>
+                            <span>ETL Pipelines</span>
+                        </div>
+                        <!-- API Design -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                            <span>API Design</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="card skill-category fade-in">
-                    <h4>DEVELOPMENT</h4>
-                    <ul>
-                        <li>Python & Backend Development</li>
-                        <li>Containerization</li>
-                        <li>CI/CD Pipeline Design</li>
-                        <li>Performance Optimization</li>
-                        <li>Security Implementation</li>
-                    </ul>
+
+                <!-- Category 3: IoT & Big Data -->
+                <div class="space-y-4">
+                    <h5 class="text-sm font-bold text-neutral-500 uppercase tracking-widest">IoT & Big Data</h5>
+                    <div class="flex flex-wrap gap-3">
+                        <!-- IoT Hub -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10 10 10 0 0 1-10-10 10 10 0 0 1 10-10z"/><path d="M8.5 12a3.5 3.5 0 0 1 7 0"/><path d="M12 8v8"/></svg>
+                            <span>Azure IoT Hub</span>
+                        </div>
+                         <!-- Satellite Data -->
+                         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z"/></svg>
+                            <span>Satellite Data Processing</span>
+                        </div>
+                         <!-- High Availability -->
+                         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm hover:border-neutral-600 transition-colors cursor-default">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>High Availability Systems</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="card skill-category fade-in">
-                    <h4>DATA ENGINEERING</h4>
-                    <ul>
-                        <li>Big Data Processing</li>
-                        <li>IoT System Design</li>
-                        <li>Real-time Analytics</li>
-                        <li>Data Pipeline Architecture</li>
-                        <li>Machine Learning Ops</li>
-                    </ul>
-                </div>
+
             </div>
         </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="border-t border-neutral-800 pt-12 pb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <p class="text-white font-bold text-lg">Leonardo Pol</p>
+                <p class="text-neutral-500 text-sm mt-1">Treviso, Italy • 342 780 2285</p>
+            </div>
+            <div class="flex gap-6">
+                 <a href="mailto:leonardo.pol@outlook.com" class="text-sm text-neutral-400 hover:text-white transition-colors">Email</a>
+                 <a href="https://linkedin.com/in/leonardo-pol-3773aa207" class="text-sm text-neutral-400 hover:text-white transition-colors">LinkedIn</a>
+                 <a href="https://github.com/leopoldev404" class="text-sm text-neutral-400 hover:text-white transition-colors">GitHub</a>
+            </div>
+        </footer>
+
     </main>
 
-    <!-- Footer - Transparent -->
-    <footer>
-        <div class="container">
-            <p class="text-muted">&copy; 2025 LEONARDO POL</p>
-        </div>
-    </footer>
-
-    <!-- Animated Navigation Button -->
-    <div class="nav-button" id="navButton">
-        <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
-
     <script>
-        // Navigation button functionality
-        const navButton = document.getElementById('navButton');
-        const sections = document.querySelectorAll('section');
-        let currentSectionIndex = 0;
-
-        // Function to navigate to next section
-        function navigateToNextSection() {
-            currentSectionIndex = (currentSectionIndex + 1) % sections.length;
-            sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
-            
-            // Update button direction based on position
-            if (currentSectionIndex === sections.length - 1) {
-                navButton.classList.add('up');
-            } else {
-                navButton.classList.remove('up');
-            }
-        }
-
-        // Function to navigate to previous section
-        function navigateToPrevSection() {
-            currentSectionIndex = (currentSectionIndex - 1 + sections.length) % sections.length;
-            sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
-            
-            // Update button direction based on position
-            if (currentSectionIndex === 0) {
-                navButton.classList.remove('up');
-            } else {
-                navButton.classList.add('up');
-            }
-        }
-
-        // Click event for navigation button
-        navButton.addEventListener('click', function() {
-            if (currentSectionIndex === sections.length - 1) {
-                // If at last section, go back to top
-                currentSectionIndex = -1;
-                navigateToNextSection();
-            } else {
-                navigateToNextSection();
-            }
-        });
-
-        // Update current section based on scroll position
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY + 100;
-            
-            sections.forEach((section, index) => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    currentSectionIndex = index;
-                    
-                    // Update button direction
-                    if (currentSectionIndex === sections.length - 1) {
-                        navButton.classList.add('up');
-                    } else {
-                        navButton.classList.remove('up');
-                    }
-                }
-            });
-        });
-
-        // Scroll animations
+        // Intersection Observer for scroll animations
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Only animate once
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.card').forEach(element => {
-            observer.observe(element);
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth Scroll handling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100, // Offset for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
