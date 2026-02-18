@@ -1,383 +1,886 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leonardo Pol | Software Engineer</title>
-    <meta name="description" content="Portfolio of Leonardo Pol, Software Engineer specializing in Cloud Architecture, Microservices, and IoT.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'eth-dark': '#05010d',
-                        'eth-card': 'rgba(255, 255, 255, 0.03)',
-                        'eth-border': 'rgba(255, 255, 255, 0.08)',
-                        'eth-accent': '#a855f7',
-                        'eth-text-muted': '#9ca3af',
-                    },
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'hero-glow': 'radial-gradient(circle at 50% -20%, #4c1d95 0%, #1e1b4b 30%, #05010d 70%)',
-                        'text-gradient': 'linear-gradient(to right, #ffffff 20%, #d8b4fe 100%)',
-                        'card-gradient': 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-tertiary: #666666;
+            --accent: #333333;
+            --border: #222222;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #05010d;
-            background-image: radial-gradient(circle at 50% 0%, #2e1065 0%, #05010d 60%);
-            background-attachment: fixed;
-            color: #ffffff;
-            font-family: 'Roboto', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-track {
-            background: #05010d;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: var(--bg-primary);
         }
 
-        /* Gradient Text Utility */
-        .text-gradient-main {
-            background: linear-gradient(135deg, #ffffff 0%, #e9d5ff 50%, #c084fc 100%);
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-greeting {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #666 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent;
         }
 
-        /* Glass Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .hero-title {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+            font-weight: 400;
         }
 
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.15);
+        .hero-location {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        .hero-location span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 20px 40px -15px rgba(126, 34, 206, 0.15);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
         }
 
-        /* Chip Styles */
-        .tech-chip {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.2s ease;
-        }
-        .tech-chip:hover {
-            border-color: #a855f7;
-            background: rgba(168, 85, 247, 0.1);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        .btn-secondary:hover {
+            border-color: var(--text-secondary);
+            background: var(--bg-secondary);
         }
 
-        /* Fade Animation */
-        .fade-in-section {
+        /* Section Styles */
+        section {
+            padding: 8rem 10%;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            max-width: 600px;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--text-tertiary);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Experience Section */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .experience-item {
+            position: relative;
+            padding-left: 3rem;
+            border-left: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 11px;
+            height: 11px;
+            background: var(--bg-primary);
+            border: 2px solid var(--text-tertiary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            border-left-color: var(--text-secondary);
+        }
+
+        .experience-item:hover::before {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
+        .experience-header {
+            margin-bottom: 1rem;
+        }
+
+        .experience-role {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .experience-company {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-duration {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .experience-highlights {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .experience-highlights li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .experience-highlights li::marker {
+            color: var(--text-tertiary);
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--bg-secondary);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            padding: 2rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--text-tertiary);
+            transform: translateY(-3px);
+        }
+
+        .skill-category-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .skill-list li:hover {
+            color: var(--text-primary);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-text {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 1rem 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        .email-display {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 10%;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .fade-in-section.is-visible {
+
+        .fade-in.visible {
             opacity: 1;
-            transform: none;
+            transform: translateY(0);
         }
-        
-        /* Nav Blur */
-        .nav-blur {
-            background: rgba(5, 1, 13, 0.6);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+
+            .hero {
+                padding: 0 5%;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-item {
+                padding-left: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Cursor Effect */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--text-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.3s ease;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-purple-500/30 selection:text-white">
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 nav-blur transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">Leonardo Pol</a>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-                <a href="#about" class="hover:text-white transition-colors">About</a>
-                <a href="#experience" class="hover:text-white transition-colors">Experience</a>
-                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
-            </div>
-            <a href="mailto:leonardo.pol@outlook.com" class="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all border border-white/5 hover:border-white/20 backdrop-blur-sm">
-                Get in touch
-            </a>
-        </div>
+    <nav>
+        <a href="#" class="logo">LP.</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-6 pt-32 pb-20">
-        <section id="about" class="fade-in-section mb-32 text-center pt-10">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/20 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-8 mx-auto">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-                </span>
-                Available for Hire
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">Leonardo Pol</h1>
+            <p class="hero-title">Software Engineer specializing in cloud-native architectures, IoT infrastructures, and scalable microservices.</p>
+            <div class="hero-location">
+                <span>📍 Treviso, Italy</span>
+                <span>📧 leonardo.pol@outlook.com</span>
+                <span>📱 +39 342 780 2285</span>
             </div>
-            
-            <h1 class="text-6xl md:text-8xl font-black tracking-tight mb-6 leading-tight">
-                Build. Scale. <br/>
-                <span class="text-gradient-main">Optimize.</span>
-            </h1>
-            
-            <p class="max-w-2xl mx-auto text-xl text-gray-400 leading-relaxed mb-10 font-light">
-                <span class="text-white font-normal">Software Engineer</span> <br/>
-                Specializing in <span class="text-white font-normal">Microservices Cloud-Native Development</span>. <br/>
-                I turn complex infrastructure challenges into streamlined, cost-effective solutions.
+            <div class="cta-buttons">
+                <a href="#experience" class="btn btn-primary">View Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="section-header fade-in">
+            <span class="section-number">01.</span>
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Over five years of experience optimizing resources and driving impactful results across diverse tech projects.</p>
+        </div>
+        <div class="about-content fade-in">
+            <div class="about-text">
+                <p>I excel in identifying efficient alternatives and building cutting-edge solutions. From designing robust APIs and Big Data pipelines to building IoT infrastructures and Serverless architectures, I bring a strategic mindset to reduce costs while maintaining high performance.</p>
+                <br>
+                <p>As a collaborative leader, I thrive in fostering team synergy and empowering cross-functional teams to work cohesively and deliver exceptional outcomes.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">22+</span>
+                    <span class="stat-label">Team Members Led</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Companies</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Commitment</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <div class="section-header fade-in">
+            <span class="section-number">02.</span>
+            <h2 class="section-title">Experience</h2>
+            <p class="section-subtitle">My professional journey in software engineering and cloud architecture.</p>
+        </div>
+        <div class="experience-list fade-in">
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-role">Software Engineer</h3>
+                    <p class="experience-company">Safety21 · Padova</p>
+                    <span class="experience-duration">Jun 2024 - Present</span>
+                </div>
+                <p class="experience-description">
+                    Maintain and enhance mission-critical applications supporting public safety operations for police headquarters and government agencies.
+                </p>
+                <ul class="experience-highlights">
+                    <li>Drive infrastructure modernization with cloud-first approach using containerization, microservices, and IaC</li>
+                    <li>Lead migration of on-premise applications to cloud, prioritizing scalability, security, and cost-efficiency</li>
+                    <li>Refactor legacy applications integrating cloud architecture best practices and DevOps methodologies</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-role">Senior Consultant</h3>
+                    <p class="experience-company">Capgemini · Venice</p>
+                    <span class="experience-duration">Jun 2022 - Jun 2024</span>
+                </div>
+                <p class="experience-description">
+                    Led development teams and optimized CI/CD pipelines for containerized applications in the telecommunications sector.
+                </p>
+                <ul class="experience-highlights">
+                    <li>Optimized CI/CD pipelines using Docker, EKS, SonarQube, and GitLab, significantly reducing deployment times</li>
+                    <li>Led team of 22 developers building Python-based microservices, driving innovation and scalability</li>
+                    <li>Enhanced project delivery efficiency in complex telecom systems</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-role">Analyst | Backend Developer</h3>
+                    <p class="experience-company">Avanade · Padova</p>
+                    <span class="experience-duration">Apr 2021 - Jun 2022</span>
+                </div>
+                <p class="experience-description">
+                    Spearheaded development of containerized backend applications for satellite data processing and IoT infrastructure.
+                </p>
+                <ul class="experience-highlights">
+                    <li>Designed and implemented ETL pipeline for efficient satellite data processing</li>
+                    <li>Built and managed IoT infrastructure using Azure IoT Hub for hundreds of devices</li>
+                    <li>Enabled seamless data collection and analysis from external providers</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-role">Cloud & Software Developer</h3>
+                    <p class="experience-company">Texa · Monastier, Treviso</p>
+                    <span class="experience-duration">Jan 2020 - Apr 2021</span>
+                </div>
+                <p class="experience-description">
+                    Developed full-stack solutions for Azure resource management and cloud infrastructure optimization.
+                </p>
+                <ul class="experience-highlights">
+                    <li>Developed Full-Stack Web Extension for Azure resource management using SQL and Graph Databases</li>
+                    <li>Enabled cost tracking and project-specific resource utilization</li>
+                    <li>Optimized cloud infrastructure through efficient storage, log management, and VM resizing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="section-header fade-in">
+            <span class="section-number">03.</span>
+            <h2 class="section-title">Technical Skills</h2>
+            <p class="section-subtitle">Technologies and tools I work with to bring ideas to life.</p>
+        </div>
+        <div class="skills-grid fade-in">
+            <div class="skill-category">
+                <h3 class="skill-category-title">Cloud & Infrastructure</h3>
+                <ul class="skill-list">
+                    <li>Azure Cloud Services</li>
+                    <li>AWS</li>
+                    <li>Kubernetes (EKS)</li>
+                    <li>Docker & Containerization</li>
+                    <li>Infrastructure as Code</li>
+                    <li>Serverless Architecture</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3 class="skill-category-title">Development</h3>
+                <ul class="skill-list">
+                    <li>Python</li>
+                    <li>Microservices Architecture</li>
+                    <li>RESTful APIs</li>
+                    <li>Big Data Pipelines</li>
+                    <li>ETL Processes</li>
+                    <li>Full-Stack Development</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3 class="skill-category-title">DevOps & Tools</h3>
+                <ul class="skill-list">
+                    <li>CI/CD Pipelines</li>
+                    <li>GitLab</li>
+                    <li>SonarQube</li>
+                    <li>Git Version Control</li>
+                    <li>Agile Methodologies</li>
+                    <li>DevOps Best Practices</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3 class="skill-category-title">Databases & IoT</h3>
+                <ul class="skill-list">
+                    <li>Azure IoT Hub</li>
+                    <li>SQL Databases</li>
+                    <li>Graph Databases</li>
+                    <li>IoT Infrastructure</li>
+                    <li>Data Collection & Analysis</li>
+                    <li>Log Management</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="section-header fade-in">
+            <span class="section-number">04.</span>
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Interested in working together? Let's talk.</p>
+        </div>
+        <div class="contact-content fade-in">
+            <p class="contact-text">
+                I'm currently open to new opportunities and interesting projects. Whether you have a question or just want to say hi, I'll try my best to get back to you!
             </p>
-            
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#experience" class="px-8 py-3.5 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]" style="with: 180px">
-                    View Work
+            <a href="mailto:leonardo.pol@outlook.com" class="email-display">leonardo.pol@outlook.com</a>
+            <div class="contact-links">
+                <a href="https://linkedin.com/in/leonardo-pol-3773aa207" target="_blank" class="contact-link">
+                    <span>LinkedIn</span>
                 </a>
-                <a href="https://linkedin.com/in/leonardo-pol-3773aa207" target="_blank" class="px-8 py-3.5 rounded-full bg-transparent border border-white/20 text-white font-medium hover:bg-white/5 transition-all" style="with: 180px">
-                    Linkedin Profile
+                <a href="https://github.com/leopoldev404" target="_blank" class="contact-link">
+                    <span>GitHub</span>
+                </a>
+                <a href="tel:+393427802285" class="contact-link">
+                    <span>Call Me</span>
                 </a>
             </div>
-        </section>
-        
-        <section id="experience" class="fade-in-section mb-32">
-            <div class="flex items-end justify-between mb-12">
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Professional Journey</h2>
-                    <p class="text-gray-400">Delivering impact across telecommunications and public safety.</p>
-                </div>
-                <div class="hidden md:block w-32 h-[1px] bg-gradient-to-r from-purple-500/50 to-transparent"></div>
-            </div>
+            <a href="mailto:leonardo.pol@outlook.com" class="btn btn-primary">Say Hello</a>
+        </div>
+    </section>
 
-            <div class="grid grid-cols-1 gap-6">
-                <!-- Job 1 -->
-                <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <svg class="w-24 h-24 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
-                    </div>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 relative z-10">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Safety21</h3>
-                            <p class="text-purple-400 font-medium">Software Engineer</p>
-                        </div>
-                        <span class="mt-2 md:mt-0 px-4 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">
-                            Jun 2024 — Present
-                        </span>
-                    </div>
-                    <ul class="space-y-3 text-gray-300/90 leading-relaxed relative z-10 max-w-3xl">
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Maintained mission-critical applications for police headquarters ensuring high availability (HA).</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Driving modernization via cloud-first approach (Containerization, Microservices, IaC).</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Leading migration of on-premise apps to cloud, optimizing for security and cost.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Job 2 -->
-                <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Capgemini</h3>
-                            <p class="text-purple-400 font-medium">Senior Consultant</p>
-                        </div>
-                        <span class="mt-2 md:mt-0 px-4 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">
-                            Jun 2022 — Jun 2024
-                        </span>
-                    </div>
-                    <ul class="space-y-3 text-gray-300/90 leading-relaxed max-w-3xl">
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Led a team of 22 developers building Python microservices for telecom sector.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Optimized CI/CD pipelines (Docker, EKS, GitLab), significantly reducing deployment time.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Avanade</h3>
-                            <p class="text-purple-400 font-medium">Analyst - Backend Developer</p>
-                        </div>
-                        <span class="mt-2 md:mt-0 px-4 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">Apr 2021 — Jun 2022</span>
-                    </div>
-                    <ul class="space-y-3 text-gray-300/90 leading-relaxed max-w-3xl">
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Designed ETL pipeline for satellite data processing.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Developed high-performant backend microservices serving hundreds reqs/sec.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Designed and Implemented Azure IoT Hub infrastructure for hundreds of devices.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Texa</h3>
-                            <p class="text-purple-400 font-medium">Cloud Developer</p>
-                        </div>
-                        <span class="mt-2 md:mt-0 px-4 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">Jan 2020 — Apr 2021</span>
-                    </div>
-                    <ul class="space-y-3 text-gray-300/90 leading-relaxed max-w-3xl">
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Developed full-stack web extensions for Azure resource management to enhance projects management process.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span> Optimized cloud infra (storage, logs, VM resizing) to reduce operational costs.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 flex-shrink-0"></span>
-                            <span>Developed backend services to ingest data coming from hundreds of devices</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Technical Expertise -->
-        <section class="fade-in-section mb-32">
-             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Core Competencies</h2>
-                <p class="text-gray-400">The modern stack I use to build scalable systems.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Category: Cloud -->
-                <div class="glass-card rounded-2xl p-8">
-                    <h5 class="text-sm font-bold text-purple-400 uppercase tracking-widest mb-6">Cloud & DevOps</h5>
-                    <div class="flex flex-wrap gap-3">
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">
-                            Azure
-                        </div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">
-                            AWS
-                        </div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">
-                            Docker
-                        </div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">
-                            <span>IaC (Terraform)</span>
-                        </div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">
-                            <span>GitLab CI</span>
-                        </div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">
-                            <span>Azure Devops Pipeline</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card rounded-2xl p-8">
-                    <h5 class="text-sm font-bold text-purple-400 uppercase tracking-widest mb-6">Backend Techs</h5>
-                    <div class="flex flex-wrap gap-3">
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">.NET</div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">Python</div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">Microservices</div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">SQL DB (Azure SQL, Postgres)</div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">NO SQL DB (Cosmos, Mongo)</div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">Queues (Service Bus, RabbitMQ)</div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">Storage (Azure Storage, S3)</div>
-                        <div class="tech-chip inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm cursor-default">Cache (Memcached, Redis)</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer id="contact" class="border-t border-white/10 pt-16 pb-12">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-                <div>
-                    <h4 class="text-2xl font-bold text-white mb-2">Ready to scale?</h4>
-                    <p class="text-gray-400">Open for senior engineering roles.</p>
-                </div>
-                <div class="flex gap-6">
-                     <a href="mailto:leonardo.pol@outlook.com" class="text-sm text-gray-400 hover:text-purple-400 transition-colors">Email</a>
-                     <a href="https://linkedin.com/in/leonardo-pol-3773aa207" class="text-sm text-gray-400 hover:text-purple-400 transition-colors">LinkedIn</a>
-                     <a href="https://github.com/pollbytes" class="text-sm text-gray-400 hover:text-purple-400 transition-colors">GitHub</a>
-                </div>
-            </div>
-            <div class="mt-12 text-center text-xs text-gray-600">&copy; 2025 Leonardo Pol</div>
-        </footer>
-
-    </main>
+    <footer>
+        <p>Designed & Built by Leonardo Pol · 2024</p>
+    </footer>
 
     <script>
-        // Intersection Observer
+        // Cursor Effect
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX - 10 + 'px';
+                cursorFollower.style.top = e.clientY - 10 + 'px';
+            }, 100);
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'scale(0.8)';
+            cursorFollower.style.transform = 'scale(0.8)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'scale(1)';
+            cursorFollower.style.transform = 'scale(1)';
+        });
+
+        // Hover effect for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .experience-item, .skill-category, .stat-item');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursorFollower.style.transform = 'scale(1.5)';
+                cursor.style.borderColor = '#666';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursorFollower.style.transform = 'scale(1)';
+                cursor.style.borderColor = '#fff';
+            });
+        });
+
+        // Scroll Animation Observer
         const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
         };
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
         });
 
-        // Smooth Scroll
+        // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
+
+        // Active navigation highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = '#fff';
+                }
+            });
+        });
+
+        // Hide cursor on touch devices
+        if ('ontouchstart' in window) {
+            cursor.style.display = 'none';
+            cursorFollower.style.display = 'none';
+        }
+
+        // Performance: Reduce motion for users who prefer it
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.scrollBehavior = 'auto';
+            cursor.style.display = 'none';
+            cursorFollower.style.display = 'none';
+        }
     </script>
 </body>
 </html>
